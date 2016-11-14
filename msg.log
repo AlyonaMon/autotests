@@ -1,0 +1,19 @@
+11/14/2016 02:49:35 PM  __main__             INFO     The directory is not empty! Starting read files in dir..
+11/14/2016 02:49:35 PM  __main__             INFO     File 'globals' has on dir!
+11/14/2016 02:49:35 PM  __main__             INFO     File 'environment' has on dir!
+11/14/2016 02:49:35 PM  __main__             INFO     File 'collection' has on dir!
+11/14/2016 02:49:36 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:36 PM  RequestSaveResponce  INFO     Access Key present in response: 912321td3f8vmi9nd3qrbiet03
+11/14/2016 02:49:36 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:36 PM  RequestSaveResponce  INFO     Access Key present in response: fqben2mrp4e9s4td282r4utii0
+11/14/2016 02:49:37 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:37 PM  RequestSaveResponce  INFO     Access Key present in response: v9j6kv8butm0no83080h2o3vh2
+11/14/2016 02:49:38 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:38 PM  RequestSaveResponce  INFO     Access Key present in response: jrirm2voej4u23vpdhkk26phs4
+11/14/2016 02:49:38 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:38 PM  RequestSaveResponce  INFO     Access Key present in response: 0n6ll3tluu21m4nppktlb9ij47
+11/14/2016 02:49:39 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:39 PM  RequestSaveResponce  INFO     Access Key present in response: 7cbh34rt78qp6473utnvvp3060
+11/14/2016 02:49:39 PM  RequestSaveResponce  INFO     Authentication is successful
+11/14/2016 02:49:39 PM  RequestSaveResponce  INFO     Access Key present in response: 1uv3d3g6naab3r4ru5kj3cc673
+11/14/2016 02:49:40 PM  __main__             INFO     All files read

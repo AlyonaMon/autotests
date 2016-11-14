@@ -1,0 +1,20 @@
+[
+	{
+		"key": "path_to_restful",
+		"type": "text",
+		"value": "https://bo-qa-04.icecat.biz",
+		"enabled": true
+	},
+	{
+		"key": "access_key",
+		"type": "text",
+		"value": "a7qg0hcbfa0hg7neva7644e447",
+		"enabled": true
+	},
+	{
+		"key": "test",
+		"type": "text",
+		"value": "51",
+		"enabled": true
+	}
+]

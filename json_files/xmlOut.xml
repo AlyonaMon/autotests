@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="test_siute_rest_language_api">
+  <testsuite name="Authentication_for_superuser_test" id="465b024d-429d-4a82-bcbf-5dc3bc15d2b0" time="1355">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms">
+      <failure type="AssertionFailure">
+        <![CDATA[Failed 1 times.]]>
+      </failure>
+    </testcase>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="e503f3b8-b41f-46c0-bc59-53fe24177dfb" time="92">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+  <testsuite name="Authentication_for_supereditor_test" id="aaf81f27-42d7-4bfa-883e-bb487a71124b" time="61">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="e05b74a2-bd3a-49b1-a398-4bce3a15dfa0" time="63">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+  <testsuite name="Authentication_for_brand_test" id="1ba3dbbe-a430-4377-aa2b-75e1bef10757" time="75">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="c96f527a-8765-4911-b125-7d455a56c540" time="88">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 1 laguage"/>
+  </testsuite>
+  <testsuite name="Authentication_for_editor_test" id="b74050de-3c87-4025-b087-2e66587fff2a" time="61">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="a1491f10-bb87-4e0b-ad56-dfc4dee0a9b6" time="74">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+  <testsuite name="Authentication_for_account_manager1_test" id="a672b0fb-2b28-4d8b-b4f7-3ddfba9791b5" time="74">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="39434cae-b371-47f0-8a01-941acebfd37e" time="89">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+  <testsuite name="Authentication_for_category_manager1_test" id="e35398dc-f7a0-4717-b947-9c1ab72942c6" time="58">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="0155f463-c357-4ff1-b3ce-b2ffcca483bb" time="62">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+  <testsuite name="Authentication_for_vendor_manager1_test" id="94d84ede-115c-453f-acf0-655d20166d5e" time="82">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="Set access key in global variable"/>
+  </testsuite>
+  <testsuite name="Get_list_languages" id="7f4e917a-a21c-4412-8cf4-802e7d92d9c3" time="81">
+    <testcase name="Response code is 200 or 201"/>
+    <testcase name="Status code name has string 'OK'"/>
+    <testcase name="Body is correct"/>
+    <testcase name="Content-Type is present"/>
+    <testcase name="Response time is less than 500ms"/>
+    <testcase name="List has 51 laguages"/>
+  </testsuite>
+</testsuites>

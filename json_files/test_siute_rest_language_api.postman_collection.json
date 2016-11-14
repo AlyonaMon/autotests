@@ -1,0 +1,424 @@
+{
+	"variables": [],
+	"info": {
+		"name": "test_siute_rest_language_api",
+		"_postman_id": "9263d332-ca29-1a63-fcfe-820d576b2d82",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1_testcase_for_super_user",
+			"description": "Steps to reproduse:\n1. Login user (superuser_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n",
+			"item": [
+				{
+					"name": "Authentication_for_superuser_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"P2Uw75ER_shDxmGoSPoE2TeXaTO3hvDG\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}\n\n\n"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2_testcase_for_super_editor",
+			"description": "Steps to reproduse:\n1. Login user (supereditor_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n\n",
+			"item": [
+				{
+					"name": "Authentication_for_supereditor_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"wX6MBbNw4T1l74s1QwNNChKwVWSvuPLo\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3_testcase_for_brand_user",
+			"description": "Steps to reproduse:\n1. Login user (brand_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 1 language UA\n",
+			"item": [
+				{
+					"name": "Authentication_for_brand_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"3BmTwhH_AJk_rBtLZMzh42FhKCNf1KlD\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"}]';\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 1) {\n    tests[\"List has 1 laguage\"] = true;\n} else {\n    tests[\"List has 1 laguage\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages\r\n\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4_testcase_for_editor",
+			"description": "Steps to reproduse:\n1. Login user (editor_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n",
+			"item": [
+				{
+					"name": "Authentication_for_editor_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"NQmDc1XZMybwNXgCSsL_ePsNwAFi1OhQ\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5_testcase_for_account_manager",
+			"description": "Steps to reproduse:\n1. Login user (account_manager1_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n",
+			"item": [
+				{
+					"name": "Authentication_for_account_manager1_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"68qZWLLsk05aK3O-A5p9M5BD6B6IXt0s\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6_testcase_for_category_manager",
+			"description": "Steps to reproduse:\n1. Login user (category_manager1_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n",
+			"item": [
+				{
+					"name": "Authentication_for_category_manager1_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"VKhCULd_JIa5SqLU_ZfXjswX98Y-icCl\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7_testcase_for_vendor_manager",
+			"description": "Steps to reproduse:\n1. Login user (vendor_manager1_test)\n2. Get list of the exist languages\n\nExpected result:\nGet list of the 50 languages\n",
+			"item": [
+				{
+					"name": "Authentication_for_vendor_manager1_test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody.has('\"access_key\":\"');\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//set access key in global variable (if access_key absent in response stop the test case)\nif (responseBody.has('{\"access_key\":') === true) {\n    tests[\"Set access key in global variable\"] = true;\n    postman.setGlobalVariable(\"access_key\", responseJSON.access_key);\n} else {\n    tests[\"Set access key in global variable\"] = false;\n    postman.setNextRequest(null);\n}\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}/user/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_key\":\"fbFfW7PVQ5YX-vjWFQgRWMJmxGzbYTHY\"\n}"
+						},
+						"description": "Every request should have query parameter at URL access_key - by default use hash current BO authorization logic - Perl sessions.\r\nWe have possibility get access_key for user by application key. It's a new session logic on restful service. For this need use parameter &session_type=rest.\r\ne.g."
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list_languages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//environment variable for display full url\npostman.setEnvironmentVariable(\"url\", request.url);\n\n//parsing responce in JSON format\nvar responseJSON;\ntry { \nresponseJSON = JSON.parse(responseBody);\n}\ncatch (e) {}\n\n//test scripts\ntests[\"Response code is 200 or 201\"] = responseCode.code === 200 || responseCode.code === 201;\n\ntests[\"Status code name has string 'OK'\"] = responseCode.name.has(\"OK\");\n\ntests[\"Body is correct\"] = responseBody === '[{\"langid\":\"1\",\"code\":\"english\",\"short_code\":\"EN\",\"published\":\"Y\",\"backup_langid\":\"9\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"2\",\"code\":\"dutch\",\"short_code\":\"NL\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"3\",\"code\":\"french\",\"short_code\":\"FR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"4\",\"code\":\"german\",\"short_code\":\"DE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"5\",\"code\":\"italian\",\"short_code\":\"IT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"6\",\"code\":\"spanish\",\"short_code\":\"ES\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"7\",\"code\":\"danish\",\"short_code\":\"DK\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"8\",\"code\":\"russian\",\"short_code\":\"RU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"9\",\"code\":\"us english\",\"short_code\":\"US\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"imperial\"},{\"langid\":\"10\",\"code\":\"brazilian-portuguese\",\"short_code\":\"BR\",\"published\":\"Y\",\"backup_langid\":\"11\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"11\",\"code\":\"portuguese\",\"short_code\":\"PT\",\"published\":\"Y\",\"backup_langid\":\"10\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"12\",\"code\":\"chinese\",\"short_code\":\"ZH\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"13\",\"code\":\"swedish\",\"short_code\":\"SV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"14\",\"code\":\"polish\",\"short_code\":\"PL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"15\",\"code\":\"czech\",\"short_code\":\"CZ\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"16\",\"code\":\"hungarian\",\"short_code\":\"HU\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"17\",\"code\":\"finnish\",\"short_code\":\"FI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"18\",\"code\":\"greek\",\"short_code\":\"EL\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"19\",\"code\":\"norwegian\",\"short_code\":\"NO\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"20\",\"code\":\"turkish\",\"short_code\":\"TR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"21\",\"code\":\"bulgarian\",\"short_code\":\"BG\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"22\",\"code\":\"georgian\",\"short_code\":\"KA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"23\",\"code\":\"romanian\",\"short_code\":\"RO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"24\",\"code\":\"serbian\",\"short_code\":\"SR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"25\",\"code\":\"ukrainian\",\"short_code\":\"UK\",\"published\":\"Y\",\"backup_langid\":\"8\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"26\",\"code\":\"japanese\",\"short_code\":\"JA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"27\",\"code\":\"catalan\",\"short_code\":\"CA\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"28\",\"code\":\"argentinian-spanish\",\"short_code\":\"ES_AR\",\"published\":\"N\",\"backup_langid\":\"6\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"29\",\"code\":\"croatian\",\"short_code\":\"HR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"30\",\"code\":\"arabic\",\"short_code\":\"AR\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"31\",\"code\":\"vietnamese\",\"short_code\":\"VI\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"32\",\"code\":\"korean\",\"short_code\":\"KO\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"33\",\"code\":\"macedonian\",\"short_code\":\"MK\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"34\",\"code\":\"slovenian\",\"short_code\":\"SL\",\"published\":\"N\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"35\",\"code\":\"singapore-english\",\"short_code\":\"EN_SG\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"36\",\"code\":\"south africa-english\",\"short_code\":\"EN_ZA\",\"published\":\"N\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"37\",\"code\":\"traditional chinese\",\"short_code\":\"ZH_TW\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"38\",\"code\":\"hebrew\",\"short_code\":\"HE\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"39\",\"code\":\"lithuanian\",\"short_code\":\"LT\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"40\",\"code\":\"latvian\",\"short_code\":\"LV\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"41\",\"code\":\"indian-english\",\"short_code\":\"EN_IN\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"42\",\"code\":\"swiss-german\",\"short_code\":\"DE_CH\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"43\",\"code\":\"indonesian\",\"short_code\":\"ID\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"44\",\"code\":\"slovak\",\"short_code\":\"SK\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"45\",\"code\":\"persian\",\"short_code\":\"FA\",\"published\":\"Y\",\"backup_langid\":null,\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"46\",\"code\":\"mexican-spanish\",\"short_code\":\"ES_MX\",\"published\":\"Y\",\"backup_langid\":\"6\",\"separators\":\".\",\"measurement\":\"metric\"},{\"langid\":\"47\",\"code\":\"estonian\",\"short_code\":\"ET\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"48\",\"code\":\"belgian-german\",\"short_code\":\"DE_BE\",\"published\":\"Y\",\"backup_langid\":\"4\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"49\",\"code\":\"belgian-french\",\"short_code\":\"FR_BE\",\"published\":\"Y\",\"backup_langid\":\"3\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"50\",\"code\":\"belgian-dutch\",\"short_code\":\"NL_BE\",\"published\":\"Y\",\"backup_langid\":\"2\",\"separators\":\",\",\"measurement\":\"metric\"},{\"langid\":\"51\",\"code\":\"thai\",\"short_code\":\"TH\",\"published\":\"Y\",\"backup_langid\":\"1\",\"separators\":\".\",\"measurement\":\"metric\"}]';\n\n\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\n\ntests[\"Response time is less than 500ms\"] = responseTime < 500;\n\nvar number = Object.keys(responseJSON).length;\n    postman.setGlobalVariable(\"test\", number);\nif (number == 51) {\n    tests[\"List has 51 laguages\"] = true;\n} else {\n    tests[\"List has 51 laguages\"] = false;\n}"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\n"
+							}
+						}
+					],
+					"request": {
+						"url": "{{path_to_restful}}{{rest_v2_language}}?access_key={{access_key}}&session_type=rest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "Display the current list of languages"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
