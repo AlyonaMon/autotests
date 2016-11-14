@@ -1,48 +1,28 @@
 <?xml version="1.0" ?>
 <testsuites name="test_siute_rest_language_api">
   <testsuite name="Authentication_for_superuser_test">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.472ms"/>
+    <testcase name="Response code is 400: False">
+      <failure type="AssertionFailure">
+        <failed>![CDATA[Failed]]</failed>
+      </failure>
+    </testcase>
+    <testcase name="Status code name 'Bad Request': False">
+      <failure type="AssertionFailure">
+        <failed>![CDATA[Failed]]</failed>
+      </failure>
+    </testcase>
+    <testcase name="Response time is less than 0.5ms: 0.491ms"/>
     <testcase name="Content type is present: True"/>
-    <testcase name="Access Key present in response : True"/>
-  </testsuite>
-  <testsuite name="Get_list_languages">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.254ms"/>
-    <testcase name="Content type is present: True"/>
+    <testcase name="Access Key present in response : False">
+      <failure type="AssertionFailure">
+        <failed>![CDATA[Failed]]</failed>
+      </failure>
+    </testcase>
   </testsuite>
   <testsuite name="Authentication_for_supereditor_test">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.277ms"/>
-    <testcase name="Content type is present: True"/>
-    <testcase name="Access Key present in response : True"/>
-  </testsuite>
-  <testsuite name="Get_list_languages">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.278ms"/>
-    <testcase name="Content type is present: True"/>
-  </testsuite>
-  <testsuite name="Authentication_for_brand_test">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.255ms"/>
-    <testcase name="Content type is present: True"/>
-    <testcase name="Access Key present in response : True"/>
-  </testsuite>
-  <testsuite name="Get_list_languages">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.28ms"/>
-    <testcase name="Content type is present: True"/>
-  </testsuite>
-  <testsuite name="Authentication_for_editor_test">
-    <testcase name="Response code is 200 or 201: True"/>
-    <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.282ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.256ms"/>
     <testcase name="Content type is present: True"/>
     <testcase name="Access Key present in response : True"/>
   </testsuite>
@@ -50,6 +30,32 @@
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
     <testcase name="Response time is less than 0.5ms: 0.269ms"/>
+    <testcase name="Content type is present: True"/>
+  </testsuite>
+  <testsuite name="Authentication_for_brand_test">
+    <testcase name="Response code is 200 or 201: True"/>
+    <testcase name="Status code name has string 'OK': True"/>
+    <testcase name="Response time is less than 0.5ms: 0.27ms"/>
+    <testcase name="Content type is present: True"/>
+    <testcase name="Access Key present in response : True"/>
+  </testsuite>
+  <testsuite name="Get_list_languages">
+    <testcase name="Response code is 200 or 201: True"/>
+    <testcase name="Status code name has string 'OK': True"/>
+    <testcase name="Response time is less than 0.5ms: 0.259ms"/>
+    <testcase name="Content type is present: True"/>
+  </testsuite>
+  <testsuite name="Authentication_for_editor_test">
+    <testcase name="Response code is 200 or 201: True"/>
+    <testcase name="Status code name has string 'OK': True"/>
+    <testcase name="Response time is less than 0.5ms: 0.289ms"/>
+    <testcase name="Content type is present: True"/>
+    <testcase name="Access Key present in response : True"/>
+  </testsuite>
+  <testsuite name="Get_list_languages">
+    <testcase name="Response code is 200 or 201: True"/>
+    <testcase name="Status code name has string 'OK': True"/>
+    <testcase name="Response time is less than 0.5ms: 0.298ms"/>
     <testcase name="Content type is present: True"/>
   </testsuite>
   <testsuite name="Authentication_for_account_manager1_test">
@@ -62,33 +68,33 @@
   <testsuite name="Get_list_languages">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.258ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.275ms"/>
     <testcase name="Content type is present: True"/>
   </testsuite>
   <testsuite name="Authentication_for_category_manager1_test">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.28ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.275ms"/>
     <testcase name="Content type is present: True"/>
     <testcase name="Access Key present in response : True"/>
   </testsuite>
   <testsuite name="Get_list_languages">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.277ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.328ms"/>
     <testcase name="Content type is present: True"/>
   </testsuite>
   <testsuite name="Authentication_for_vendor_manager1_test">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.278ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.27ms"/>
     <testcase name="Content type is present: True"/>
     <testcase name="Access Key present in response : True"/>
   </testsuite>
   <testsuite name="Get_list_languages">
     <testcase name="Response code is 200 or 201: True"/>
     <testcase name="Status code name has string 'OK': True"/>
-    <testcase name="Response time is less than 0.5ms: 0.256ms"/>
+    <testcase name="Response time is less than 0.5ms: 0.302ms"/>
     <testcase name="Content type is present: True"/>
   </testsuite>
 </testsuites>

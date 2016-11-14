@@ -136,7 +136,7 @@ def Tests(response, test_dic_for_case, name_testcase, top):
     if "STATUS_CODE" in test_dic_for_case:
         m = STATUS_CODE(response)
         children = SubElement(parent, 'testcase', name=str(m))
-        if 'False' in m:
+        if "False" in m:
             children_1 = SubElement(children, 'failure', type="AssertionFailure")
             children_2 = SubElement(children_1, 'failed')
             children_2.text = "![CDATA[Failed]]"
@@ -147,7 +147,7 @@ def Tests(response, test_dic_for_case, name_testcase, top):
     if "STATUS_CODE_NAME" in test_dic_for_case:
         m = STATUS_CODE_NAME(response)
         children = SubElement(parent, 'testcase', name=str(m))
-        if 'False' in m:
+        if "False" in m:
             children_1 = SubElement(children, 'failure', type="AssertionFailure")
             children_2 = SubElement(children_1, 'failed')
             children_2.text = "![CDATA[Failed]]"

@@ -27,10 +27,12 @@ def Auth_for_supereditor(application_key, url, test_dic_for_case, name_testcase,
         logger.info('Authentication is successful')
         logger.info('Access Key present in response: %s', str(result))
     elif "Message" in r:
+        Tests.Tests(response, test_dic_for_case, name_testcase, top)
         logger.setLevel(logging.ERROR)
         logger.error('Access Key absent in response: %s', str(r))
         result = False
     else:
+        Tests.Tests(response, test_dic_for_case, name_testcase, top)
         logger.setLevel(logging.ERROR)
         logger.error('Fails for an paar App key - Access Key')
         result = False
